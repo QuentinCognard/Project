@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+{% if not current_user %}
+      Bienvenue sur le MUD.  Si vous n'avez pas encore de compte,
+      vous devez commencer par vous en créer un.
+{% end %}
+{% end %}
+{% block js %}
+selected_tab = "#tabhome";
+{% end %}

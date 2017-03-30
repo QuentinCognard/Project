@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form-horizontal" role="form" method="post" href="/login" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="playerUsername" class="col-sm-2 control-label">Username</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="playerUsername" placeholder="Username" name="username">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="playerPassword1" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="playerPassword1" placeholder="Password" name="password">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <button type="submit" class="btn btn-default">Login</button>
+    </div>
+  </div>
+<input type="hidden" name="next" value="{{ next }}">
+{% module xsrf_form_html() %}
+</form>
+{% if login_error %}
+<div class="alert alert-danger">Username or password incorrect!</div>
+{% end %}
+{% end %}
+{% block js %}
+selected_tab = "#tablogin";
+{% end %}

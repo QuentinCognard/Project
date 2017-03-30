@@ -1,0 +1,243 @@
+start: parking-000
+directions:
+  normalized:
+    nord      : nord
+    n         : nord
+    est       : est
+    e         : est
+    sud       : sud
+    s         : sud
+    ouest     : ouest
+    o         : ouest
+    nordest   : nord-est
+    nord-est  : nord-est
+    ne        : nord-est
+    nordouest : nord-ouest
+    nord-ouest: nord-ouest
+    "no"      : nord-ouest
+    sudest    : sud-est
+    sud-est   : sud-est
+    se        : sud-est
+    sudouest  : sud-ouest
+    sud-ouest : sud-ouest
+    so        : sud-ouest
+    haut      : haut
+    h         : haut
+    bas       : bas
+    b         : bas
+    monter    : haut
+    grimper   : haut
+    descendre : bas
+  noun_the:
+    nord      : le nord
+    est       : l'est
+    sud       : le sud
+    ouest     : l'ouest
+    nord-est  : le nord-est
+    nord-ouest: le nord-ouest
+    sud-est   : le sud-est
+    sud-ouest : le sud-ouest
+    haut      : le haut
+    bas       : le bas
+  noun_at_the:
+    nord      : au nord
+    est       : à l'est
+    est       : a l'est
+    sud       : au sud
+    ouest     : à l'ouest
+    ouest     : a l'ouest
+    nord-est  : au nord-est
+    nord-ouest: au nord-ouest
+    sud-est   : au sud-est
+    sud-ouest : au sud-ouest
+    haut      : en haut
+    bas       : en bas
+
+events:
+  enter-portal:
+    observer  : "{{ actor.name }} sort par {{ exit.the_direction() }}."
+    failed:
+      actor   : "Vous tentez vainement de sortir par {{ exit.the_direction() }}."
+      observer: "{{ actor.name }} tente vainement de sortir par {{ exit.the_direction() }}."
+
+  leave-portal:
+    observer  : "{{ actor.name }} entre par {{ exit.the_direction() }}."
+
+  take:
+    actor     : "Vous prenez {{ object.noun_the() }}."
+    observer  : "{{ actor.name }} prend {{ object.noun_the() }}."
+    failed:
+      - props : event:object-already-in-inventory
+        actor : "{{ object.noun_the() }} est déjà dans votre inventaire."
+      - actor   : "Vous tentez en vain de prendre {{ object.noun_the() }}."
+        observer: "{{ actor.name }} tente en vain de prendre {{ object.noun_the() }}."
+
+  failed-action:
+    - props   : action:cannot-see
+      actor   : "Dans cette obscurité, vous n'y voyez rien."
+    - props   : action:go
+      actor   : "Il n'y a pas d'issue dans cette direction."
+    - props   : action:cannot-find-object
+      actor   : "{{ action.object }}: introuvable!"
+    - props   : action:cannot-find-object2
+      actor   : "{{ action.object2 }}: introuvable!"
+
+  light-on:
+    - props   : -object:lightable
+      actor   : "{{ object.noun_the() }} n'est pas allumable."
+    - props   : object:light-on
+      actor   : "{{ object.noun_the() }} est déjà allumé{{ object.noun_e() }}"
+    - actor   : "Vous allumez {{ object.noun_the() }}."
+      observer: "{{ actor.name }} allume {{ object.noun_his() }}."
+      effects :
+        - type  : ChangePropEffect
+          modifs: object:light-on
+
+  light-off:
+    - props   : -object:lightable
+      actor   : "{{ object.noun_the() }} n'est pas allumable, donc pas éteignable."
+    - props   : -object:light-on
+      actor   : "{{ object.noun_the() }} est déjà éteint{{ object.noun_e() }}"
+    - actor   : "Vous éteignez {{ object.noun_the() }}."
+      observer: "{{ actor.name }} éteind {{ object.noun_his() }}."
+      effects :
+        - type  : ChangePropEffect
+          modifs: -object:light-on
+
+  inventory:
+    empty: "Votre inventaire est vide."
+    intro: "Votre inventaire contient:"
+
+  open:
+    actor     :
+      - props : -object:closed
+        data  : "C'est déjà fait!"
+
+  open-with:
+    actor     :
+      - props : -object:closed
+        data  : "C'est déjà fait!"
+
+  look:
+    players-intro: "Ici vous rencontrez:"
+    objects-intro: "Ici vous trouvez:"
+    failed:
+      actor   :
+        - props: event:cannot-see
+          data : "Dans cette obscurité, vous n'y voyez rien."
+        - data : "Pour une raison inconnue, vous ne voyez rien."
+    actor:
+      - props: object:is_player
+        data : |
+          {{ object.name }}{% if object.description %}, {{ object.description }}{% end %}.
+      - data : |
+          {{ object.noun_a() }} <i>(sans description)</i>.
+    inside:
+      intro: "Dedans vous trouvez:"
+      empty: "Il n'y a rien dedans."
+
+  info:
+    - props: peeked:is_player
+      actor: |
+        {{ peeked.name }}{% if peeked.description %}, {{ peeked.description }}{% end %}.
+
+  birth:
+    observer: |
+      {{ actor.name }} se matérialise de nulle part près de vous.
+
+  death:
+    actor: |
+      Vous êtes mort!
+    observer: |
+      {% if actor.contents() %}
+      {{ actor.name }} est mort, laissant derrière lui ses possessions.
+      {% else %}
+      {{ actor.name }} est mort!
+      {% end %}
+
+  dead-action:
+    actor: |
+      Vous êtes mort.  Pour recommencer le MUD, cliquer sur Logout,
+      puis logger vous à nouveau.
+
+  drop:
+    actor: |
+      Vous laissez ici {{ object.noun_the() }}
+    observer: |
+      {{ actor.name }} laisse ici {{ object.noun_a() }}
+
+  drop-in:
+    - props: event:object2-not-container
+      actor: |
+        Vous ne pouvez pas poser cela là.
+    - props: event:object-not-in-inventory
+      actor: |
+        Vous ne pouvez poser que ce que vous avez
+        dans votre inventaire.
+    - actor: |
+        Vous posez {{ object.noun_the() }} dans {{ object2.noun_the() }}
+      observer: |
+        {{ actor.name }} pose {{ object.noun_the() }} dans {{ object2.noun_the() }}
+
+  push:
+    failed:
+      actor: |
+        Vous appuyez futilement sur {{ object.noun_the() }}
+      observer: |
+        {{ actor.name }} appuie futilement sur {{ object.noun_the() }}
+
+  close:
+    - props: -object:closable
+      actor: |
+        Vous tentez en vain de fermer {{ object.noun_the() }} qui n'est
+        pas fermable.
+      observer: |
+        {{ actor.name }} tente en vain de fermer {{ object.noun_the() }}
+        qui n'est pas fermable.
+    - props: object:closed
+      actor: |
+        Vous tentez futilement de fermer {{ object.noun_the() }} qui
+        est déjà fermé{{ object.noun_e() }}.
+      observer: |
+        {{ actor.name }} tente futilement de fermer {{ object.noun_the() }}
+        qui est déjà fermé{{ object.noun_e() }}.
+    - actor: |
+        Vous fermez {{ object.noun_the() }}.
+      observer: |
+        {{ actor.name }} ferme {{ object.noun_the() }}.
+      effects:
+        - type  : ChangePropEffect
+          modifs: object:closed
+
+  reset:
+    actor: |
+      Le jeu a été reset.  Vous êtes donc mort!
+
+  teleport:
+    not-found:
+      actor: |
+        Aucune destination trouvée!
+    ambiguous:
+      actor: |
+        Destination ambigue!  Les options possibles sont:
+        <ul>
+        {% for k in object %}
+        <li>{{ k.id }}</li>
+        {% end %}
+        </ul>
+    departure:
+      observer: |
+        {{ actor.name }} disparaît par téléportation!
+    arrival:
+      observer: |
+        {{ actor.name }} apparaît près de vous par téléportation.
+      actor: |
+        Vous vous matérialisez à votre destination.
+
+  # this is the default for portal/exits
+  # it should not really be under events, but that's because
+  # I am using the get_event_data API.  It should fix this one day!!!
+  shared-props:
+    - closed
+    - closable
+

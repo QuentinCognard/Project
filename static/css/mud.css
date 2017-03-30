@@ -1,0 +1,87 @@
+body {
+    font-family     : "Trebuchet MS", Verdana, Arial, sans-serif;
+    font-size       : large;
+}
+
+div.mudcontent {
+    padding-top     : 7em;
+}
+
+span.welcome {
+    position        : relative;
+    float           : right;
+    color           : white;
+    top             : 1em;
+}
+
+#inbox {
+    position        : fixed;
+    top             : 5em;
+    bottom          : 5em;
+    left            : 0px;
+    right           : 0px;
+    overflow        : scroll;
+    overflow-x      : hidden;
+}
+
+#inboxcontents {
+    width           : 80%;
+    margin-left     : auto;
+    margin-right    : auto;
+}
+
+#input {
+    position        : fixed;
+    bottom          : 1em;
+    left            : 0px;
+    right           : 0px;
+}
+
+#inputcontents {
+    width           : 80%;
+    margin-left     : auto;
+    margin-right    : auto;
+}
+
+#inputbox {
+    font-size       : large;
+    font-family     : "Trebuchet MS", Verdana, Arial, sans-serif;
+}
+
+div.alert.mud-echo {
+    font-family     : monospace;
+    font-size       : x-large;
+    padding         : 0px;
+}
+
+.mud-echo pre {
+    font-size       : large;
+    font-weight     : bold;
+    background-color: white;
+    border          : none;
+    padding         : 0px;
+    margin          : 0px;
+}
+
+.mud-echo pre:before {
+    content         : "> ";
+}
+
+.mud-result {
+    background-color: #eeeeee;
+    border-color    : #777777;
+    color           : black;
+}
+
+.mud-error {
+    color           : #a94442;
+    background-color: #f2dede;
+    border-color    : #a94442;
+}
+
+.mud-info {
+    background-color: #f9f9f9;
+    border-color    : #999999;
+    color           : #888888;
+    font-style      : italic;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}MUD@IUT45{% end %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ static_url('css/mud.css') }}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">{% block brand %}MUD@IUT45{% end %}</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li id="tabhome"><a href="/">Home</a></li>
+            <li id="tababout"><a href="/about">About</a></li>
+{% if current_user is None %}
+            <li id="tablogin"><a href="/login">Login</a></li>
+	    <li id="tabregister"><a href="/register">Register</a></li>
+{% else %}
+	    <li><a href="/logout">Logout</a></li>
+	    <li><a id="save" href="#">Save</a></li>
+	    <li><a id="reset" href="#">Reset</a></li>
+{% end %}
+          </ul>
+{% if current_user %}
+	  <span class="welcome">Welcome {{ current_user }}</span>
+{% end %}
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="mudcontent">
+{% block content %}{% end %}
+      </div>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ static_url('js/jquery.js') }}"></script>
+    <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+<script>
+var selected_tab = "";
+</script>
+    <script src="{{ static_url('js/mud.js') }}"></script>
+<script>
+{% block js %}{% end %}
+$("#save").click(saveMessage);
+$("#reset").click(resetMessage);
+$(selected_tab).addClass('active')
+</script>
+  </body>
+</html>

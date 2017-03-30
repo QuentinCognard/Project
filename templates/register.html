@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form-horizontal" role="form" method="post" href="/register" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="playerUsername" class="col-sm-2 control-label">Username</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="playerUsername" placeholder="Username" name="username">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="playerPassword1" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="playerPassword1" placeholder="Password" name="password1">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="playerPassword2" class="col-sm-2 control-label">Verify Password</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="playerPassword2" placeholder="Password" name="password2">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="playerDescription" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="playerDescription" placeholder="Description (Optional)" name="description">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="playerGender" class="col-sm-2 control-label">Gender</label>
+    <div class="col-sm-4">
+      <div class="radio-inline">
+	<label><input type="radio" name="gender" id="playerMale" value="m" checked>Male</label>
+      </div>
+      <div class="radio-inline">
+	<label><input type="radio" name="gender" id="playerFemale" value="f">Female</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <button type="submit" class="btn btn-default">Create Account</button>
+    </div>
+  </div>
+<input type="hidden" name="next" value="{{ next }}">
+{% module xsrf_form_html() %}
+</form>
+{% if username_not_available %}
+<div class="alert alert-danger">Username already taken!</div>
+{% end %}
+{% if password_mismatch %}
+<div class="alert alert-danger">Passwords don't match!</div>
+{% end %}
+{% if username_empty %}
+<div class="alert alert-danger">Username must not be empty!</div>
+{% end %}
+{% if password_empty %}
+<div class="alert alert-danger">Password must not be empty</div>
+{% end %}
+{% if gender_unknown %}
+<div class="alert alert-danger">Unknown gender: {{ gender }}</div>
+{% end %}
+{% end %}
+{% block js %}
+selected_tab = "#tabregister";
+{% end %}

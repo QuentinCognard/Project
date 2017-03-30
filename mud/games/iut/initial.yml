@@ -1,0 +1,431 @@
+---
+id: parking-000
+type: Location
+contains:
+  - lampe-000
+events:
+  info:
+    actor: "Parking de l'IUT."
+  look:
+    actor: |
+      Vous êtes sur le parking de l'IUT.  Au nord-est, se trouve
+      l'entrée du département info.  Il y a un arbre près de vous.
+      Les branches les plus basses sont à portée de main.
+---
+id: portal-parking-arbre-000
+type: Portal
+exits:
+  - id: parking-000-haut
+    location: parking-000
+    direction: haut
+    events:
+      enter-portal:
+        actor   : "Vous grimpez prestement dans l'arbre."
+        observer: "{{ actor.name }} grimpe dans l'arbre."
+      leave-portal:
+        observer: |
+          {{ actor.name }} descend de l'arbre et vous rejoint
+          sur le parking de l'IUT.
+  - id: arbre-000-bas
+    location: arbre-000
+    direction: bas
+    events:
+      enter-portal:
+        actor   : "Vous descendez prudemment de l'arbre."  
+        observer: "{{ actor.name }} vous quitte et descend de l'arbre."
+      leave-portal:
+        observer: "{{ actor.name }} vous rejoint dans l'arbre."
+---
+id: arbre-000
+type: Location
+events:
+  info:
+    actor: "Dans l'arbre."
+  look:
+    actor: |
+      Vous êtes dans l'arbre.  Les branches semblent heureusement
+      solides.  Il y a un nid au creux d'une de ces branches.
+parts:
+  - nid-000
+---
+id: nid-000
+type: Container
+name: nid
+events:
+  look:
+    actor: |
+      C'est un nid de facture plutôt sommaire,
+      mais assez spacieux.
+contains:
+  - badge-000
+---
+id: badge-000
+type: Thing
+name: badge
+props:
+  - takable
+  - key-for-porte-porche-000
+events:
+  info:
+    actor: "Un badge de sécurité."
+  look:
+    actor: |
+      C'est un badge de sécurité permettant d'ouvrir des
+      portes sécurisées.
+---
+id: portal-parking-porche-000
+type: Portal
+exits:
+  - id: parking-000-nord-est
+    location: parking-000
+    direction: nord-est
+  - id: porche-000-sud-ouest
+    location: porche-000
+    direction: sud-ouest
+---
+id: porche-000
+type: Location
+events:
+  info:
+    actor: "Porche du département info."
+  look:
+    actor: |
+      Vous êtes sur le porche du département info.
+      Au nord-est, une porte donne accès au hall du
+      département. Au sud-ouest, une allée mène au
+      parking de l'IUT.
+---
+id: portal-porche-hall-000
+type: Portal
+props:
+  - closed
+  - closable
+exits:
+  - id: porche-000-nord-est
+    location: porche-000
+    direction: nord-est
+    name:
+      - porte
+    gender: fem
+    props:
+      - for-enter
+    events:
+      enter-portal:
+        actor     : "Vous entrez dans le département info."
+        observer  : "{{ actor.name }} entre dans le département info."
+        failed:
+          actor   : &porte001 |
+            La porte d'accès au département info est sécurisée.
+            Elle est actuellement fermée et ne peut être ouverte
+            qu'avec un badge de sécurité.
+          observer: &porte002 |
+            {{ actor.name }} tente en vain d'ouvrir la porte du
+            département info.
+      leave-portal:
+        actor     : "Vous sortez du département info."
+        observer  : "{{ actor.name }} sort du département info."
+      open        :
+        - props   : portal:closed
+          actor   : *porte001
+          observer: *porte002
+        - props   : -portal:closed
+          actor   : &porte003 "La porte est déjà ouverte!"
+      open-with   :
+        - props   :
+            - portal:closed
+            - object2:key-for-porte-porche-000
+          effects :
+            type  : ChangePropEffect
+            modifs:
+              - -portal:closed
+          actor   : |
+            La porte du département s'ouvre avec un déclic.
+          observer: |
+            {{ actor.name }} ouvre la porte du département info
+            avec un badge de sécurité.
+        - props   :
+            - portal:closed
+            - -object2:key-for-porte-porche-000
+          actor   : |
+            Vous tentez vainement d'ouvrir la porte avec
+            {{ object2.noun_the() }}
+          observer: |
+            {{ actor.name }} tente vainement d'ouvrir la porte du
+            département info avec {{ object2.noun_a() }}
+        - props   :
+            - -portal:closed
+          actor   : *porte003
+          observer: |
+            {{ actor.name }} tente futilement d'ouvrir la porte du
+            département info avec {{ object2.noun_a() }}, alors
+            qu'elle est déjà ouverte.
+      close       : &porte004
+        - props   : portal:closed
+          actor   : "Vous fermez la porte du département."
+          observer: "{{ actor.name }} ferme le porte du département info."
+          effects :
+            - type  : ChangePropEffect
+              modifs: =portal-porche-hall-000:closed
+      close-with  : *porte004
+  - id: hall-000-sud-ouest
+    location: hall-000
+    direction: sud-ouest
+    name: porte
+    gender: fem
+    props:
+      - for-leave
+    events:
+      enter-portal:
+        observer  : "{{ actor.name }} sort du département info."
+        failed:
+          actor   : |
+            La porte d'accès au département info est sécurisée.
+            Elle est actuellement fermée et, même pour sortir,
+            elle ne peut être ouverte qu'avec un badge de sécurité.
+          observer: |
+            {{ actor.name }} tente en vain de sortir par la porte
+            du département info.
+---
+id: hall-000
+type: Location
+props:
+  - dark
+events:
+  info:
+    actor: "Le hall du département info."
+  look:
+    actor: |
+      Vous êtes dans le hall du département info de l'IUT.
+      Au sud-ouest, la porte d'entrée mène au porche.  Un
+      escalier mène à l'étage.  Un tableau d'affichage est
+      accroché au mur.
+parts:
+  - tableau-000
+  - notice-000
+---
+id: tableau-000
+type: Thing
+name: tableau
+events:
+  info:
+    actor: "Un tableau d'affichage."
+  look:
+    actor: |
+      Sur le tableau d'affichage une notice jaune est
+      fixée par une punaise.
+---
+id: notice-000
+type: Thing
+name: notice
+gender: fem
+events:
+  info:
+    actor: "Une notice jaune."
+  look:
+    actor: |
+      Sur cette notice est inscrit: <i>mdp paradis.mud</i>: <tt>XYZZY</tt>
+---
+id: escalier-000
+type: Portal
+exits:
+  - id: hall-000-haut
+    location: hall-000
+    direction: haut
+  - id: etage-000-bas
+    location: etage-000
+    direction: bas
+---
+id: etage-000
+type: Location
+props:
+  - dark
+events:
+  info:
+    actor: "Étage du département info."
+  look:
+    actor: |
+      Vous êtes à l'étage du département.  Au nord-ouest,
+      la salle 22 est ouverte.
+---
+id: etage-salle-22-000
+type: Portal
+exits:
+  - id: etage-000-nord-ouest
+    location: etage-000
+    direction: nord-ouest
+    props:
+      - for-enter
+  - id: salle-22-000-sud-est
+    location: salle-22-000
+    direction: sud-est
+    props:
+      - for-leave
+---
+id: salle-22-000
+type: Location
+props:
+  - dark
+events:
+  info:
+    actor: "Salle 22."
+  look:
+    actor: |
+      Vous êtes dans la salle 22.  Il y a un ordinateur
+      allumé.  Au sud-est, une porte donne sur la partie
+      centrale de l'étage.
+  bouton-cabane:
+    observer: |
+      l'ordinateur clignote brièvement.
+parts:
+  - ordinateur-000
+---
+id: ordinateur-000
+type: Thing
+names:
+  - ordinateur
+  - ordi
+props:
+  - light-on
+events:
+  info:
+    actor: "Un ordinateur."
+  look:
+    actor: |
+      L'ordinateur est allumé.  Le prompt dit: <i>tapez
+      le mot de passe du paradis.</i>
+  type:
+    - props: event:typed-xyzzy
+      effects:
+        - type  : EnterPortalEffect
+          exit  : =portal-ordinateur-cabane-000-exit-1
+      observer: |
+        {{ actor.name }} entre un mot de passe dans l'ordinateur.
+    - actor: |
+        Ce n'est pas le bon mot de passe.
+      observer: |
+        {{ actor.name }} entre un mot de passe dans l'ordinateur,
+        mais ce n'est pas le bon.
+---
+id: portal-ordinateur-cabane-000
+type: Portal
+exits:
+  - id: portal-ordinateur-cabane-000-exit-1
+    location: salle-22-000
+    events:
+      enter-portal:
+        actor: |
+          Une étrange lumière émane de l'écran et emplit
+          la salle.  Vous vous dématérialisez et êtes aspiré
+          dans le widget étiqueté "ENTREZ SANS FRAPPER"
+          sur l'écran.
+        observer: "{{ actor.name }} disparaît."
+      leave-portal:
+        actor   : "Vous vous rematérialisez en salle 22."
+        observer: "{{ actor.name }} apparaît de nulle part."
+  - id: portal-ordinateur-cabane-exit-2
+    location: cabane-000
+    direction: est
+    props:
+      - for-leave
+    events:
+      enter-portal:
+        - props: exit:activated
+          actor: |
+            Vous sautez dans le vide.  Un tapis volant vous
+            cueille dans votre chute et plonge dans la cascade.
+          observer: |
+            {{ actor.name }} s'élance dans le vide.  Un tapis
+            volant le cueille dans sa chute et plonge dans la
+            cascade.
+          effects:
+            - type  : ChangePropEffect
+              modifs: -exit:activated
+        - actor: |
+            Vous sautez dans le vide et vous vous écrasez en
+            bas de la falaise.
+          observer: |
+            {{ actor.name }} s'élance dans le vide et s'écrase
+            en bas de la falaise.
+          data-driven: true
+          effects:
+            - type: DeathEffect
+---
+id: cabane-000
+type: Location
+events:
+  info:
+    actor: "Une cabane dans un arbre."
+  look:
+    actor: |
+      Vous êtes dans une cabane construite dans un arbre.
+      Elle surplombe un gouffre dans lequel se déverse une
+      cascade.  A l'est, une ouverture dans la balustrade
+      semble vous offrir la dangereuse option de sauter dans
+      le vide.  Sur le mur, un bouton est étiquetté:
+      <i>Taxi Service</i>.
+parts:
+  - bouton-cabane-000
+---
+id: bouton-cabane-000
+type: Thing
+name:
+  - bouton
+props:
+  - pushable
+events:
+  look:
+    actor: |
+      Un bouton étiqueté: <i>Taxi Service</i>.
+  push:
+    actor: |
+      Vous appuyez sur le bouton, mais rien ne semble se
+      produire.
+    observer: |
+      {{ actor.name }} appuie sur le bouton, mais rien ne
+      semble se produire.
+    effects:
+      - type  : ChangePropEffect
+        modifs: =portal-ordinateur-cabane-exit-2:activated
+      - type  : NarrativeEffect
+        at    : =salle-22-000
+        key   : bouton-cabane
+---
+id: lampe-000
+type: Thing
+props:
+  - lightable
+  - takable
+names   :
+  - lampe
+  - torche
+  - lampe-torche
+gender: fem
+events:
+  info:
+    actor:
+      - props: =lampe-000:light-on
+        data : "Une lampe-torche allumée."
+      - data : "Une lampe-torche éteinte."
+  look:
+    actor:
+      - props: object:light-on
+        data : "Une lampe-torche allumée."
+      - data : "Une lampe-torche éteinte."
+  light-on:
+    - props : object:light-on
+      actor : "La lampe est déjà allumée."
+    - actor : "Vous allumez votre lampe-torche."
+      observer: |
+        {{ actor.name }} allume sa lampe-torche.
+      effects:
+        - type  : ChangePropEffect
+          modifs: object:light-on
+  light-off:
+    - props : -object:light-on
+      actor : "La lampe est déjà éteinte."
+    - actor : "Vous éteignez votre lampe-torche."
+      observer: |
+        {{ actor.name }} éteind sa lampe-torche.
+      effects:
+        - type  : ChangePropEffect
+          modifs: -object:light-on

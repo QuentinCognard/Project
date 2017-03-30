@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="inbox">
+ <div id="inboxcontents">
+  {% for item in items %}
+  <div class="alert mud-{{ item['type'] }}">
+    {% raw item['html'] %}
+  </div>
+  {% end %}
+ </div>
+</div>
+<div id="input">
+  <div id="inputcontents">
+  <form action="/" method="post" id="messageform" role="form">
+    <div class="form-group">
+      <label class="sr-only" for="inputbox">Command</label>
+      <input type="text" name="text" id="inputbox" class="form-control" placeholder="Command"/>
+    </div>
+    <input type="hidden" name="type" value="input"/>
+<!--    <input type="submit" value="Send" class="btn btn-default"/> -->
+    {% module xsrf_form_html() %}
+  </form>
+  </div>
+</div>
+{% end %}
+{% block js %}
+selected_tab = "#tabhome";
+$(document).ready(function() {
+  start_websocket();
+  $("#inputbox").focus();
+  scroll_to_bottom();
+});
+{% end %}
