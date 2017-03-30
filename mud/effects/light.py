@@ -3,10 +3,13 @@
 #==============================================================================
 
 from .effect import Effect2, Effect3
-from mud.events import LightOnEvent, LightOffEvent
+from mud.events import LightOnEvent, LightOffEvent, LightWithEvent
 
 class LightOnEffect(Effect2):
     EVENT = LightOnEvent
 
 class LightOffEffect(Effect3):
     EVENT = LightOffEvent
+
+class LightWithEffect(Effect3):
+    EVENT = LightWithEvent

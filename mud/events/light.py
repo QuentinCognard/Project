@@ -3,6 +3,7 @@
 #==============================================================================
 
 from .event import Event2
+from .event import Event3
 
 class LightOnEvent(Event2):
     NAME = "light-on"
@@ -22,3 +23,13 @@ class LightOffEvent(Event2):
             self.fail()
             return self.inform("light-off.failed")
         self.inform("light-off")
+
+
+class LightWithEvent(Event3):
+    NAME = "light-with"
+    
+    def perform(self):
+    	if not self.object.has_prop("lightable"):
+    	    self.fail()
+    	    return self.inform("light-with.failed")
+    	self.inform("light-with")

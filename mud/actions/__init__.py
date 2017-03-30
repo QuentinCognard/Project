@@ -10,7 +10,7 @@ from .close     import CloseAction
 from .type      import TypeAction
 from .take      import TakeAction
 from .inventory import InventoryAction
-from .light     import LightOnAction, LightOffAction
+from .light     import LightOnAction, LightOffAction, LightWithAction
 from .drop      import DropAction, DropInAction
 from .push      import PushAction
 from .teleport  import TeleportAction

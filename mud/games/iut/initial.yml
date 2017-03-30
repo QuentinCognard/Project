@@ -3,14 +3,14 @@ id: parking-000
 type: Location
 contains:
   - lampe-000
-  - tchouin-000
 events:
   info:
     actor: "Parking de l'IUT."
   look:
     actor: |
       Vous êtes sur le parking de l'IUT.  Au nord-est, se trouve
-      l'entrée du département info.  Il y a un arbre près de vous.
+      l'entrée du département info. A l'est se trouve une salle étrange.
+      Il y a un arbre près de vous.
       Les branches les plus basses sont à portée de main.
 ---
 id: portal-parking-arbre-000
@@ -426,10 +426,34 @@ events:
       actor : "La lampe est déjà éteinte."
     - actor : "Vous éteignez votre lampe-torche."
       observer: |
-        {{ actor.name }} éteind sa lampe-torche.
+        {{ actor.name }} éteint sa lampe-torche.
       effects:
         - type  : ChangePropEffect
           modifs: -object:light-on
+  light-with:
+    - props : object:light-with
+      actor : "La lampe-torche est déjà allumée."
+    - actor : "Vous allumez la lampe torche avec votre briquet."
+---
+id: DenisBrogniart-000
+type: Thing
+props:
+  - pushable
+names:
+  - denis
+  - denis brogniart
+events:
+  info:
+    actor: "Un Denis Brogniart de sécurité."
+  look:
+    actor: |
+      C'est le fameux Denis Brogniart ! avec sa belle chemise et sa barbe de
+      3 jours, comme toujours, il semble étonné par quelque chose.
+  push:
+    actor: |
+      Vous poussez Denis Brogniart et il chute lourdement.
+    observer: |
+      {{ actor.name }} pousse violement Denis Brogniart.
 ---
 id: salleDenis-000
 type: Location
@@ -437,12 +461,11 @@ contains:
   - DenisBrogniart-000
 events:
   info:
-    actor: "Ah ! la salle de Denis Brogniart"
+    actor: "Une salle avec Denis Brogniart"
   look:
     actor: |
       Vous vous trouvez dans une salle éclairée par des torches, Denis Brogniart se tient
-      au centre, debout, il vous fixe et il semble surpris de votre arrivée, il lache un puissant
-      "AH !"
+      au centre, debout, il vous fixe et il semble surprit de votre arrivée.
 ---
 id: portal-parking-salleDenis-000
 type: Portal
@@ -452,8 +475,8 @@ exits:
     direction: est
     events:
       enter-portal:
-        actor   : "Vous entrez dans la salle Denis Brogniart"
-        observer: "{{ actor.name }} ous rejoint dans le conseil."
+        actor   : "Vous entrez dans la salle étrange"
+        observer: "{{ actor.name }} nous rejoint dans le conseil."
       leave-portal:
         observer: |
           {{ actor.name }} quitte le conseil et vous rejoint sur le parking.
@@ -462,34 +485,59 @@ exits:
     direction: ouest
     events:
       enter-portal:
-        actor   : "Vous entrez dans la salle Denis Brogniart"
+        actor   : "Vous sortez de la salle étrange"
         observer: "{{ actor.name }} quitte le conseil."
       leave-portal:
         observer: "{{ actor.name }} vous rejoint dans le conseil."
 ---
-id: DenisBrogniart-000
+
+id: briquet-000
 type: Thing
+props:
+  - takable
+  - lighter
 names   :
-  - Denis
-  - Denis Brogniartlampe-torche
-  - AH
-gender: fem
+  - briquet
 events:
   info:
-    actor: "Un Denis Brogniart de sécurité."
+    actor: "Un briquet simple"
   look:
-    actor: |
-      C'est le fameux Denis Brogniart ! avec sa belle chemise et sa barbe de
-      3 jours, comme toujours, il semble étonné par quelque chose.
+    actor: "Le briquet semble encore fonctionner malgré son état"
 ---
-id: tchouin-000
+
+id: flambeau-000
 type: Thing
-names   :
-  - tchouin
-gender: fem
-events:
+props:
+  - takable
+  - lightable-with
+name:
+  - flambeau
+event:
   info:
-    actor: "TchouinTchouinTchouin !!"
+    actor:
+      - props: =flambeau-000:light-with
+        data : "un flambeau en feu"
+      - data : "un flambeau allumable"
   look:
-    actor: |
-      PUUUEEEEUUUUUUUX
+    actor:
+      - props: object:light-with
+        data : "un flambeau en feu"
+      - data : "un flambeau éteint"
+  light-with:
+    - props : object:light-with
+      actor : "le flambeau est déjà allumé"
+    - actor : "vous allumez votre flambeau"
+    observer: |
+      {{ actor.name }} allume son flambeau
+    effects:
+      - type : ChangePropEffect
+       modifs: object:light-with
+  light-off:
+    - props : object:light-with
+      actor : "le flambeau n'est pas en feu"
+    - actor : "vous éteignez votre flambeau"
+    observer: |
+      {{ actor.name }} éteint son flambeau
+    effects:
+      - type : ChangePropEffect
+       modifs: object:light-with

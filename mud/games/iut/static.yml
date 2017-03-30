@@ -104,6 +104,18 @@ events:
         - type  : ChangePropEffect
           modifs: -object:light-on
 
+  light-with:
+    - props   : -object:lightable-with
+      actor   : "{{ object.noun_the() }} n'est pas allumable."
+    - props   : -object:light-with
+      actor   : "{{ object.noun_the() }} est déjà allumé{{ object.noun_e() }}"
+    - actor   : "Vous allumez {{ object.noun_the() }}."
+      observer: "{{ actor.name }} éteind {{ object.noun_his() }}."
+      effects :
+        - type  : ChangePropEffect
+          modifs: -object:light-with
+
+
   inventory:
     empty: "Votre inventaire est vide."
     intro: "Votre inventaire contient:"
@@ -240,4 +252,3 @@ events:
   shared-props:
     - closed
     - closable
-

@@ -7,7 +7,7 @@ from .go           import EnterPortalEvent, TraversePortalEvent, LeavePortalEven
 from .look         import LookEvent
 from .inspect      import InspectEvent
 from .take         import TakeEvent
-from .light        import LightOnEvent, LightOffEvent
+from .light        import LightOnEvent, LightOffEvent, LightWithEvent
 from .changeprop   import ChangePropEvent
 from .open         import OpenEvent, OpenWithEvent
 from .close        import CloseEvent, CloseWithEvent
