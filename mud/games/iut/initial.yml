@@ -31,7 +31,7 @@ exits:
     direction: bas
     events:
       enter-portal:
-        actor   : "Vous descendez prudemment de l'arbre."  
+        actor   : "Vous descendez prudemment de l'arbre."
         observer: "{{ actor.name }} vous quitte et descend de l'arbre."
       leave-portal:
         observer: "{{ actor.name }} vous rejoint dans l'arbre."
@@ -429,3 +429,54 @@ events:
       effects:
         - type  : ChangePropEffect
           modifs: -object:light-on
+---
+id: salleDenis-000
+type: Location
+contains:
+  - DenisBrogniart-000
+events:
+  info:
+    actor: "Ah ! la salle de Denis Brogniart"
+  look:
+    actor: |
+      Vous vous trouvez dans une salle éclairée par des torches, Denis Brogniart se tient
+      au centre, debout, il vous fixe et il semble surpris de votre arrivée, il lache un puissant
+      "AH !"
+---
+id: portal-parking-salleDenis-000
+type: Portal
+exits:
+  - id: parking-000-est
+    location: parking-000
+    direction: est
+    events:
+      enter-portal:
+        actor   : "Vous entrez dans la salle Denis Brogniart"
+        observer: "{{ actor.name }} ous rejoint dans le conseil."
+      leave-portal:
+        observer: |
+          {{ actor.name }} quitte le conseil et vous rejoint sur le parking.
+  - id: salleDenis-000-ouest
+    location: salleDenis-000
+    direction: ouest
+    events:
+      enter-portal:
+        actor   : "Vous entrez dans la salle Denis Brogniart"
+        observer: "{{ actor.name }} quitte le conseil."
+      leave-portal:
+        observer: "{{ actor.name }} vous rejoint dans le conseil."
+---
+id: DenisBrogniart-000
+type: Thing
+names   :
+  - Denis
+  - Denis Brogniartlampe-torche
+  - AH
+gender: fem
+events:
+  info:
+    actor: "Un Denis Brogniart de sécurité."
+  look:
+    actor: |
+      C'est le fameux Denis Brogniart ! avec sa belle chemise et sa barbe de
+      3 jours, comme toujours, il semble étonné par quelque chose.
