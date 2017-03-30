@@ -3,6 +3,7 @@ id: parking-000
 type: Location
 contains:
   - lampe-000
+  - tchouin-000
 events:
   info:
     actor: "Parking de l'IUT."
@@ -480,3 +481,15 @@ events:
     actor: |
       C'est le fameux Denis Brogniart ! avec sa belle chemise et sa barbe de
       3 jours, comme toujours, il semble étonné par quelque chose.
+---
+id: tchouin-000
+type: Thing
+names   :
+  - tchouin
+gender: fem
+events:
+  info:
+    actor: "TchouinTchouinTchouin !!"
+  look:
+    actor: |
+      PUUUEEEEUUUUUUUX
