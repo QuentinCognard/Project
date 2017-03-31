@@ -3,6 +3,8 @@ id: parking-000
 type: Location
 contains:
   - lampe-000
+  - briquet-000
+  - flambeau-000
 events:
   info:
     actor: "Parking de l'IUT."
@@ -430,10 +432,6 @@ events:
       effects:
         - type  : ChangePropEffect
           modifs: -object:light-on
-  light-with:
-    - props : object:light-with
-      actor : "La lampe-torche est déjà allumée."
-    - actor : "Vous allumez la lampe torche avec votre briquet."
 ---
 id: DenisBrogniart-000
 type: Thing
@@ -496,7 +494,7 @@ type: Thing
 props:
   - takable
   - lighter
-names   :
+names:
   - briquet
 events:
   info:
@@ -510,9 +508,9 @@ type: Thing
 props:
   - takable
   - lightable-with
-name:
+names:
   - flambeau
-event:
+events:
   info:
     actor:
       - props: =flambeau-000:light-with
@@ -527,17 +525,18 @@ event:
     - props : object:light-with
       actor : "le flambeau est déjà allumé"
     - actor : "vous allumez votre flambeau"
-    observer: |
-      {{ actor.name }} allume son flambeau
-    effects:
-      - type : ChangePropEffect
-       modifs: object:light-with
+      observer: |
+        {{ actor.name }} allume son flambeau
+      effects:
+        - type : ChangePropEffect
+          modifs: object:light-with
   light-off:
     - props : object:light-with
       actor : "le flambeau n'est pas en feu"
     - actor : "vous éteignez votre flambeau"
-    observer: |
-      {{ actor.name }} éteint son flambeau
-    effects:
-      - type : ChangePropEffect
-       modifs: object:light-with
+      observer: |
+        {{ actor.name }} éteint son flambeau
+      effects:
+        - type: ChangePropEffect
+          modifs: object:light-with
+---
