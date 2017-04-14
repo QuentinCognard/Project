@@ -5,12 +5,12 @@ contains:
   - bottes-000
 events:
   info:
-    actor: "Une salle de cryog�nisation"
+    actor: "Une salle de cryogénisation"
   look:
     actor: |
-      Salle contenant des caissons de cryog�nisation, certains sont ouvert,
-      d�autres sont cass�s, les interfaces de contr�le indiquent que
-      certains ont �t� ouvert de force, il n�y a plus aucun signe de vie.
+      Salle contenant des caissons de cryogénisation, certains sont ouvert,
+      d'autres sont cassés, les interfaces de contrôle indiquent que
+      certains ont été ouvert de force, il n'y a plus aucun signe de vie.
 ---
 id: Laboratoire-000
 type: Location
@@ -41,7 +41,6 @@ events:
 ---
 id: Couloir-principal-sud-000
 type: Location
-contains:
 events:
   info:
     actor: "La zone sud du couloir"
@@ -53,7 +52,6 @@ events:
 ---
 id: Couloir-principal-centre-000
 type: Location
-contains:
 events:
   info:
     actor: "La zone centre du couloir"
@@ -80,7 +78,7 @@ id: Salle-de-stockage-000
 type: Location
 contains:
   - kebab-perime-000
-  - paire-de-gants-000
+  - gants-000
 events:
   info:
     actor: "La salle de stockage"
@@ -104,7 +102,7 @@ events:
 id: Armurerie-000
 type: Location
 contains:
-  - revolver-use-000
+  - revolver-000
   - combinaison-spatiale-000
 events:
   info:
@@ -117,7 +115,6 @@ events:
 ---
 id: Couloir-principal-nord-000
 type: Location
-contains:
 events:
   info:
     actor: "La zone nord du couloir"
@@ -141,7 +138,6 @@ events:
 ---
 id: Spatioport-000
 type: Location
-contains:
 events:
   info:
     actor: "Le spatioport"
@@ -172,7 +168,7 @@ contains:
   - jetpack-000
   - fusil-assaut-000
   - interface-pilotage-000
-  - porte-capsule
+  - porte-capsule-000
 events:
   info:
     actor: "Une capsule d'exploration en bon état"
@@ -194,6 +190,16 @@ events:
       les vitres, il y a de nombreux postes de commandes. C’est d’ici que
       la trajectoire du vaisseau ainsi que la gestion de certains accès
       sont contrôlés.
+---
+id: portal-cryo-labo-000
+type: Portal
+exits:
+  - id: cryo-000-est
+    location: Salle-de-cryogenisation-000
+    direction: est
+  - id: labo-000-ouest
+    location: Laboratoire-000
+    direction: ouest
 ---
 id: portal-labo-repos-000
 type: Portal
@@ -239,7 +245,7 @@ id: portal-couloircentre-couloirest-000
 type: Portal
 exits:
   - id: couloircentre-000-ouest
-    location: Couloir-principal-centre-000-ouest
+    location: Couloir-principal-centre-000
     direction: ouest
   - id: couloirest-000-est
     location: Couloir-principal-est-000
@@ -357,7 +363,9 @@ events:
 ---
 id: combinaison-de-bord-000
 type: Thing
-name: combinaison-de-bord
+names:
+  - combinaison-de-bord
+  - combinaison
 props:
   - takable
   - equipable
@@ -407,7 +415,6 @@ names:
   - kebab-périmé
 props:
   - takable
-  - eatable ((??))
   - usable-with
 events:
   info:
@@ -417,7 +424,7 @@ events:
       Un kebab préparé par le kebabiste du vaisseau, cependant,
       une drôle d’odeur indique qu’il n’est plus très frais.
 ---
-id: paire-de-gants-000
+id: gants-000
 type: Thing
 names:
   - paire-de-gants
@@ -436,7 +443,9 @@ events:
 ---
 id: lecteur-biometrique-000
 type: Thing
-name: badge
+names:
+  - lecteur-biometrique
+  - lecteur
 props:
   - usable-with
   - key-for-Armurerie-000
@@ -448,9 +457,11 @@ events:
       Seul l'empreinte digitale d’un soldat de haut rang peut
       activer le système.
 ---
-id: revolver-use-000
+id: revolver-000
 type: Thing
-name: badge
+names:
+  - revolver
+  - revolver-use
 props:
   - takable
   - usable-with
@@ -461,3 +472,152 @@ events:
     actor: |
       Il semble être marqué par les combats, tirer avec risquerait fortement
       de l’endommager d’avantage et de le rendre inutilisable.
+---
+id: monstre-000
+type: Thing
+name: monstre
+props:
+  - usable-with
+events:
+  info:
+    actor: "Un monstre imposant"
+  look:
+    actor: |
+      Il semble très agressif mais il ne semble pas vous avoir vu,
+      s'avancer vers lui serait sucidaire.
+---
+id: scaphandre-inutilisable-000
+type: Thing
+names:
+  - scaphandre-casse
+  - scaphandre-inutilisable
+props:
+  - takable
+events:
+  info:
+    actor: "Un scaphandre inutilisable."
+  look:
+    actor: |
+      Il semble avoir été déchiré par d'énormes griffes, il n'est
+      plus utilisable.
+---
+id: scaphandre-000
+type: Thing
+name: scaphandre
+props:
+  - takable
+  - equipable
+events:
+  info:
+    actor: "Un scaphandre en bon état."
+  look:
+    actor: |
+      Ce scaphandre ne semble pas avoir été utilisé, il semble faire partie
+      d'un ensemble de combinaison spatial.
+---
+id: reservoir-a-air-000
+type: Thing
+names:
+  - reservoir-a-air
+  - reservoir
+props:
+  - takable
+  - equipable
+events:
+  info:
+    actor: "Un reservoir utilisé."
+  look:
+    actor: |
+      Il semble déjà utilisé, mais il semble rester la moitié de son contenu.
+      Un masque est fourni avec. Ce réservoir semble faire partie d'un ensemble
+      de combinaison spatial.
+---
+id: jetpack-000
+type: Thing
+name: jetpack
+props:
+  - takable
+  - equipable
+events:
+  info:
+    actor: "Un jetpack à propulsion thermique."
+  look:
+    actor: |
+      Ce jetpack semble en bon état, il me permettrait de me propulser en
+      hauteur.
+---
+  id: fusil-assaut-000
+  type: Thing
+  names:
+    - fusil
+    - fusil-d'assaut
+    - fusil-assaut
+    - fusil-dassaut
+  props:
+    - takable
+    - usable-with
+  events:
+    info:
+      actor: "Un fusil d'assaut en bon état."
+    look:
+      actor: |
+        Ce fusil d'assaut ne semble pas avoir été utilisé, il y a un chargeur
+        plein avec.
+---
+id: combinaison-spatiale-000
+type: Thing
+name: combinaison-spatiale
+props:
+  - takable
+  - equipable
+events:
+  info:
+    actor: "Une combinaison spatiale."
+  look:
+    actor: |
+      Cette combinaison spatiale est hermétique et permet d'isoler le corps
+      du vide spatial.
+---
+id: porte-capsule-000
+type: Thing
+names:
+  - porte
+  - porte-capsule
+  - porte-de-capsule
+props:
+  - usable-with
+events:
+  info:
+    actor: "Une porte blindée à verrou électronique."
+  look:
+    actor: |
+      Cette porte semble verouillée, elle peut être ouverte avec un badge.
+---
+id: interface-pilotage-000
+type: Thing
+names:
+  - interface-pilotage
+  - interface-de-pilotage
+props:
+  - usable-with
+events:
+  info:
+    actor: "L'interface de pilotage de la capsule"
+  look:
+    actor: |
+      Cette interface semble permettre le contrôle de la capsule, il
+      faut un code pour y accéder.
+---
+id: interface-controle-000
+type: Thing
+names:
+  - interface-controle
+  - interface-de-controle
+props:
+  - usable
+events:
+  info:
+    actor: "L'interface de controle du vaisseau."
+  look:
+    actor: |
+      Cette interface semble contrôler l'intégralité de la sécurité du vaisseau.
