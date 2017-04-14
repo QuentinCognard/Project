@@ -11,6 +11,7 @@ events:
       Salle contenant des caissons de cryogénisation, certains sont ouvert,
       d'autres sont cassés, les interfaces de contrôle indiquent que
       certains ont été ouvert de force, il n'y a plus aucun signe de vie.
+      Il y a porte à l'est.
 ---
 id: Laboratoire-000
 type: Location
@@ -24,6 +25,7 @@ events:
       Un complexe scientifique avec de nombreuses installations électroniques
       et des composants chimiques. Tout est saccagé,
       plus rien ne semble être utilisable.
+      On peut acceder à une zone au nord à l'est et à l'ouest.
 ---
 id: Salle-de-repos-000
 type: Location
@@ -38,6 +40,7 @@ events:
       Tout est en désordre, les tables sont renversées,
       des corps sans vie gisent au sol, du sang et des membres sont éparpillés,
       aucun doute possible, une lutte sanglante s’est produite ici.
+      On peut accéder au laboratoire à l'ouest.
 ---
 id: Couloir-principal-sud-000
 type: Location
@@ -48,7 +51,8 @@ events:
     actor: |
       Un long couloir vide, l’éclairage est défaillant, cependant,
       on y voit encore quelque chose, des traces de sang remonte jusqu’au nord,
-      on peut accéder au laboratoire.
+      On peut accéder au laboratoire au sud et la zone centrale du couloir
+      au nord.
 ---
 id: Couloir-principal-centre-000
 type: Location
@@ -59,6 +63,9 @@ events:
     actor: |
       L’intersection du couloir, on y voit l'accès à de nombreuses pièces,
       des traces de sang remonte jusqu’au bout du couloir ouest.
+      C'est l'intersection du couloir, on peut continuer vers le nord, le sud,
+      l'ouest et l'est.
+      Il y a des accés au nord-est et sud-est.
 ---
 id: Salle-des-machines-000
 type: Location
@@ -73,6 +80,7 @@ events:
       l’air est étouffant, on entends des bruits étranges au loin,
       il y a le corps de soldats, une main semble avoir été arraché de
       l’un des soldats.
+      Le couloir se situe au nord-ouest.
 ---
 id: Salle-de-stockage-000
 type: Location
@@ -86,6 +94,7 @@ events:
     actor: |
       De nombreuses choses sont entreposés ici, comme des vivres ou
       des pièces de rechange.. Quelqu’un semble avoir oublié son kebab.
+      Le couloir se situe au sud-ouest.
 ---
 id: Couloir-principal-est-000
 type: Location
@@ -97,7 +106,8 @@ events:
   look:
     actor: |
       Un long couloir vide, l’éclairage est défaillant, cependant,
-      on y voit encore quelque chose, on peut accéder à l’armurerie.
+      on y voit encore quelque chose.
+      L'accés à la salle a l'est possède un verrou à empreinte digitale
 ---
 id: Armurerie-000
 type: Location
@@ -112,6 +122,7 @@ events:
       C’est ici que sont entreposé les armes des soldats, il ne reste
       que du matériel inutilisable ainsi qu’un vieux revolver et
       une combinaison spatiale.
+      Le couloir si situe à l'ouest.
 ---
 id: Couloir-principal-nord-000
 type: Location
@@ -122,6 +133,7 @@ events:
     actor: |
       Un long couloir vide, l’éclairage est défaillant, on peut accéder à la
       salle de commandement.
+      Un badge est nécessaire pour accedder à la salle au nord.
 ---
 id: Couloir-principal-ouest-000
 type: Location
@@ -135,6 +147,7 @@ events:
       Un long couloir vide, l’éclairage est défaillant, on peut sentir
       la présence d’un monstre tout près, le corps d’un soldat dévoré
       gît au sol.
+      Il y a une porte à l'est.
 ---
 id: Spatioport-000
 type: Location
@@ -145,8 +158,8 @@ events:
     actor: |
       C’est ici que les capsules d’exploration sont entreposées.
       Il y a de nombreux cadavres sur le sol et de nombreuses capsules ont déjà
-      été utilisé. On peut voir une capsule en très mauvais état. Heureusement
-      il semble qu’il y a une capsule encore en état de fonctionner.
+      été utilisé. On peut voir une capsule en très mauvais état au nord. Heureusement
+      il semble qu’il y a une capsule encore en état de fonctionner au nord-ouest.
 ---
 id: Capsule-endommage-000
 type: Location
@@ -160,6 +173,7 @@ events:
     actor: |
       Tout semble endommagé, quelqu’un a tenté de l'utiliser pour s'enfuir
       mais des créatures l’ont attaqué avant qu’il réussisse, triste fin.
+      Le spatioport se trouve au sud.
 ---
 id: Capsule-exploration-000
 type: Location
@@ -176,6 +190,7 @@ events:
     actor: |
       Tout à l’air fonctionnel, l’interface ne m’indique aucune anomalie,
       je peux utiliser les commandes de pilotage du vaisseau.
+      Le spatioport se trouve au sud-est.
 ---
 id: Salle-de-commandement-000
 type: Location
@@ -190,6 +205,7 @@ events:
       les vitres, il y a de nombreux postes de commandes. C’est d’ici que
       la trajectoire du vaisseau ainsi que la gestion de certains accès
       sont contrôlés.
+      Le couloir est au sud.
 ---
 id: portal-cryo-labo-000
 type: Portal
