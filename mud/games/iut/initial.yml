@@ -104,8 +104,8 @@ events:
 id: Armurerie-000
 type: Location
 contains:
-  - Revolver-use-000
-  - Combinaison-spatiale-000
+  - revolver-use-000
+  - combinaison-spatiale-000
 events:
   info:
     actor: "L'armurerie"
@@ -129,7 +129,7 @@ events:
 id: Couloir-principal-ouest-000
 type: Location
 contains:
-  - Monstre-000
+  - monstre-000
 events:
   info:
     actor: "La zone ouest du couloir"
@@ -155,8 +155,8 @@ events:
 id: Capsule-endommage-000
 type: Location
 contains:
-  - Scaphandre-inutilisable-000
-  - Reservoir-a-air-000
+  - scaphandre-inutilisable-000
+  - reservoir-a-air-000
 events:
   info:
     actor: "Une capsule d'exploration endommagé"
@@ -168,11 +168,11 @@ events:
 id: Capsule-exploration-000
 type: Location
 contains:
-  - Scaphandre-000
-  - Jetpack-000
-  - Fusil-assaut-000
-  - Interface-pilotage-000
-  - Porte-capsule
+  - scaphandre-000
+  - jetpack-000
+  - fusil-assaut-000
+  - interface-pilotage-000
+  - porte-capsule
 events:
   info:
     actor: "Une capsule d'exploration en bon état"
@@ -184,7 +184,7 @@ events:
 id: Salle-de-commandement-000
 type: Location
 contains:
-  - Interface-contrôle-000
+  - interface-controle-000
 events:
   info:
     actor: "La salle de commandement"
@@ -324,3 +324,140 @@ exits:
   - id: endommage-000-nord
     location: Capsule-endommage-000
     direction: nord
+---
+id: badge-000
+type: Thing
+name: badge
+props:
+  - takable
+  - key-for-Salle-de-commandement-000
+events:
+  info:
+    actor: "Un badge de sécurité."
+  look:
+    actor: |
+      Ce badge permet d’accéder
+      au centre de commandement.
+---
+id: bottes-000
+type: Thing
+names:
+  - botte
+  - bottes
+props:
+  - takable
+  - equipable
+events:
+  info:
+    actor: "Une paire de botte."
+  look:
+    actor: |
+      Une paire de bottes hermétiques à semelle épaisse, il est indiqué
+      qu’elles font partie d’un ensemble de combinaison spatial.
+---
+id: combinaison-de-bord-000
+type: Thing
+name: combinaison-de-bord
+props:
+  - takable
+  - equipable
+events:
+  info:
+    actor: "Une combinaison de bord classique."
+  look:
+    actor: |
+      Une combinaison de bord banale, elle recouvre l’intégralité du corps
+      mais n’assure aucune protection.
+---
+id: couteau-000
+type: Thing
+names:
+  - couteau-de-survie
+  - couteau
+props:
+  - takable
+  - usable-with
+events:
+  info:
+    actor: "Un couteau a lame large."
+  look:
+    actor: |
+      Couteau militaire en bon état à lame large et crantée..
+---
+id: main-000
+type: Thing
+names:
+  - main
+  - doigt
+props:
+  - takable
+  - usable-with
+events:
+  info:
+    actor: "La main d'un soldat mort"
+  look:
+    actor: |
+      La main d’un soldat de haut rang, son empreinte pourrait m’être utile.
+---
+id: kebab-perime-000
+type: Thing
+names:
+  - kebab
+  - kebab-perime
+  - kebab-périmé
+props:
+  - takable
+  - eatable ((??))
+  - usable-with
+events:
+  info:
+    actor: "Un kebab plus très frais."
+  look:
+    actor: |
+      Un kebab préparé par le kebabiste du vaisseau, cependant,
+      une drôle d’odeur indique qu’il n’est plus très frais.
+---
+id: paire-de-gants-000
+type: Thing
+names:
+  - paire-de-gants
+  - gants
+  - gant
+props:
+  - takable
+  - equipable
+events:
+  info:
+    actor: "Une paire de gants epais."
+  look:
+    actor: |
+      Une paire de gants hermétiques épais, il est indiqué qu’ils font
+      partie d’un ensemble de combinaison spatial.
+---
+id: lecteur-biometrique-000
+type: Thing
+name: badge
+props:
+  - usable-with
+  - key-for-Armurerie-000
+events:
+  info:
+    actor: "Un lecteur biométrique d’empreinte digitale."
+  look:
+    actor: |
+      Seul l'empreinte digitale d’un soldat de haut rang peut
+      activer le système.
+---
+id: revolver-use-000
+type: Thing
+name: badge
+props:
+  - takable
+  - usable-with
+events:
+  info:
+    actor: "Un revolver usé."
+  look:
+    actor: |
+      Il semble être marqué par les combats, tirer avec risquerait fortement
+      de l’endommager d’avantage et de le rendre inutilisable.
