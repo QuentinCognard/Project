@@ -1,4 +1,4 @@
----
+﻿---
 id: Salle-de-cryogenisation-000
 type: Location
 contains:
@@ -194,3 +194,133 @@ events:
       les vitres, il y a de nombreux postes de commandes. C’est d’ici que
       la trajectoire du vaisseau ainsi que la gestion de certains accès
       sont contrôlés.
+---
+id: portal-labo-repos-000
+type: Portal
+exits:
+  - id: laboratoire-000-est
+    location: Laboratoire-000
+    direction: est
+  - id: repos-000-ouest
+    location: Salle-de-repos-000
+    direction: ouest
+---
+id: portal-labo-couloirsud-000
+type: Portal
+exits:
+  - id: laboratoire-000-sud
+    location: Laboratoire-000
+    direction: sud
+  - id: couloirsud-000-nord
+    location: Couloir-principal-sud-000
+    direction: nord
+---
+id: portal-couloirsud-couloircentre-000
+type: Portal
+exits:
+  - id: couloirsud-000-sud
+    location: Couloir-principal-sud-000
+    direction: sud
+  - id: couloircentre-000-nord
+    location: Couloir-principal-centre-000
+    direction: nord
+---
+id: portal-couloircentre-couloirnord-000
+type: Portal
+exits:
+  - id: couloircentre-000-sud
+    location: Couloir-principal-centre-000
+    direction: sud
+  - id: couloirnord-000-nord
+    location: Couloir-principal-nord-000
+    direction: nord
+---
+id: portal-couloircentre-couloirest-000
+type: Portal
+exits:
+  - id: couloircentre-000-ouest
+    location: Couloir-principal-centre-000-ouest
+    direction: ouest
+  - id: couloirest-000-est
+    location: Couloir-principal-est-000
+    direction: est
+---
+id: portal-couloircentre-couloirouest-000
+type: Portal
+exits:
+  - id: couloircentre-000-est
+    location: Couloir-principal-centre-000
+    direction: est
+  - id: couloirouest-000-ouest
+    location: Couloir-principal-ouest-000
+    direction: ouest
+---
+id: portal-couloircentre-stockage-000
+type: Portal
+exits:
+  - id: couloircentre-000-sud-ouest
+    location: Couloir-principal-centre-000
+    direction: sud-ouest
+  - id: stockage-000-nord-est
+    location: Salle-de-stockage-000
+    direction: nord-est
+---
+id: portal-couloircentre-machines-000
+type: Portal
+exits:
+  - id: couloircentre-000-nord-ouest
+    location: Couloir-principal-centre-000
+    direction: nord-ouest
+  - id: machines-000-sud-est
+    location: Salle-des-machines-000
+    direction: sud-est
+---
+id: portal-couloirnord-commandement-000
+type: Portal
+exits:
+  - id: couloirnord-000-sud
+    location: Couloir-principal-nord-000
+    direction: sud
+  - id: commandement-000-nord
+    location: Salle-de-commandement-000
+    direction: nord
+---
+id: portal-couloirest-armurerie-000
+type: Portal
+exits:
+  - id: couloirest-000-ouest
+    location: Couloir-principal-est-000
+    direction: ouest
+  - id: armurerie-000-est
+    location: Armurerie-000
+    direction: est
+---
+id: portal-couloirouest-spatioport-000
+type: Portal
+exits:
+  - id: couloirouest-000-est
+    location: Couloir-principal-ouest-000
+    direction: est
+  - id: spatioport-000-ouest
+    location: Spatioport-000
+    direction: ouest
+---
+id: portal-spatioport-exploration-000
+type: Portal
+exits:
+  - id: spatioport-000-sud-est
+    location: Spatioport-000
+    direction: sud-est
+  - id: exploration-000-nord-ouest
+    location: Capsule-exploration-000
+    direction: nord-ouest
+---
+id: portal-spatioport-endommage-000
+type: Portal
+exits:
+  - id: spatioport-000-sud
+    location: Spatioport-000
+    direction: sud
+  - id: endommage-000-nord
+    location: Capsule-endommage-000
+    direction: nord
