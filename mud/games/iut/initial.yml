@@ -300,20 +300,89 @@ exits:
 ---
 id: portal-couloirnord-commandement-000
 type: Portal
+props:
+  - closed
 exits:
   - id: couloirnord-000-sud
     location: Couloir-principal-nord-000
     direction: nord
+    name:
+      - porte
+    events:
+      enter-portal:
+        actor: "Vous entrez dans la salle de commandement"
+        failed: 
+          actor: &porte-commandement |
+            La porte est verouillée, il vous faut un badge pour entrer.
+      open:
+        - props: portal:closed
+          actor: *porte-commandement
+        - props: -portal:closed
+          actor: "La porte est déjà ouverte"
+      open-with:
+        - props:
+           - portal:closed
+           - object2:key-for-Salle-de-commandement-000
+          effects:
+            type: ChangePropEffect
+            modifs:
+              - -portal:closed
+            actor: |
+              La porte de la salle de commandement s'ouvre.
+        - props:
+          - portal:closed
+          - -object2:key-for-Salle-de-commandement-000
+          actor: |
+            Vous tentez en vaint d'ouvrir la porte.
+        - props:
+          - -portal:closed
+          actor: |
+            La porte est déjà ouverte !
   - id: commandement-000-nord
     location: Salle-de-commandement-000
     direction: sud
 ---
 id: portal-couloirest-armurerie-000
 type: Portal
+props:
+  - closed
 exits:
   - id: couloirest-000-ouest
     location: Couloir-principal-est-000
     direction: est
+    events:
+      enter-portal:
+        actor: "Vous entrez dans l'armurerie."
+        failed:
+          actor: |
+            la porte semble verouillée, il y a un scanner
+            d'empreinte digitale qui semble permettre de 
+            l'ouvrir. On dirait qu'il faut un certains grade
+            pour y accéder.
+      open:
+        - props: portal:closed
+          actor: "La porte est verouillée"
+        - props: -portal:closed
+          actor: "La porte est déjà ouverte"
+      open-with:
+        - props:
+           - portal:closed
+           - object2:main-000
+          effects:
+            type: ChangePropEffect
+            modifs:
+              - -portal:closed
+            actor: |
+              La porte de l'armurerie s'ouvre.
+        - props:
+          - portal:closed
+          - -object2:main-000
+          actor: |
+            Vous tentez en vaint d'ouvrir la porte.
+        - props:
+          - -portal:closed
+          actor: |
+            La porte est déjà ouverte !
   - id: armurerie-000-est
     location: Armurerie-000
     direction: ouest
