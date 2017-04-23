@@ -14,3 +14,4 @@ from .light     import LightOnAction, LightOffAction, LightWithAction
 from .drop      import DropAction, DropInAction
 from .push      import PushAction
 from .teleport  import TeleportAction
+from .shoot     import ShootAction

@@ -17,3 +17,4 @@ from .push       import PushEffect
 from .take       import TakeEffect
 from .type       import TypeEffect
 from .narrative  import NarrativeEffect
+from .shoot      import ShootEffect

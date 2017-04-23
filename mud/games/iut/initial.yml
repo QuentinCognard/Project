@@ -8,10 +8,10 @@ events:
     actor: "Une salle de cryogénisation"
   look:
     actor: |
-      Salle contenant des caissons de cryogénisation, certains sont ouvert,
+      Salle contenant des caissons de cryogénisation, certains sont ouverts,
       d'autres sont cassés, les interfaces de contrôle indiquent que
       certains ont été ouvert de force, il n'y a plus aucun signe de vie.
-      Il y a porte à l'est.
+      Il y a une porte à l'est.
 ---
 id: Laboratoire-000
 type: Location
@@ -25,7 +25,7 @@ events:
       Un complexe scientifique avec de nombreuses installations électroniques
       et des composants chimiques. Tout est saccagé,
       plus rien ne semble être utilisable.
-      On peut acceder à une zone au nord à l'est et à l'ouest.
+      On peut acceder à une zone au nord, à l'est et à l'ouest.
 ---
 id: Salle-de-repos-000
 type: Location
@@ -65,7 +65,7 @@ events:
       des traces de sang remonte jusqu’au bout du couloir ouest.
       C'est l'intersection du couloir, on peut continuer vers le nord, le sud,
       l'ouest et l'est.
-      Il y a des accés au nord-est et sud-est.
+      Il y a des accès au nord-est et sud-est.
 ---
 id: Salle-des-machines-000
 type: Location
@@ -107,7 +107,8 @@ events:
     actor: |
       Un long couloir vide, l’éclairage est défaillant, cependant,
       on y voit encore quelque chose.
-      L'accés à la salle a l'est possède un verrou à empreinte digitale
+      L'accès à la salle à l'est semble bloqué par un verrou à empreinte
+      digitale.
 ---
 id: Armurerie-000
 type: Location
@@ -119,10 +120,10 @@ events:
     actor: "L'armurerie"
   look:
     actor: |
-      C’est ici que sont entreposé les armes des soldats, il ne reste
+      C’est ici que sont entreposés les armes des soldats, il ne reste
       que du matériel inutilisable ainsi qu’un vieux revolver et
       une combinaison spatiale.
-      Le couloir si situe à l'ouest.
+      Le couloir se trouve à l'ouest.
 ---
 id: Couloir-principal-nord-000
 type: Location
@@ -133,7 +134,7 @@ events:
     actor: |
       Un long couloir vide, l’éclairage est défaillant, on peut accéder à la
       salle de commandement.
-      Un badge est nécessaire pour accedder à la salle au nord.
+      Un badge est nécessaire pour accéder à la salle au nord.
 ---
 id: Couloir-principal-ouest-000
 type: Location
@@ -147,7 +148,7 @@ events:
       Un long couloir vide, l’éclairage est défaillant, on peut sentir
       la présence d’un monstre tout près, le corps d’un soldat dévoré
       gît au sol.
-      Il y a une porte à l'est.
+      Il y a une porte à l'ouest.
 ---
 id: Spatioport-000
 type: Location
@@ -158,7 +159,7 @@ events:
     actor: |
       C’est ici que les capsules d’exploration sont entreposées.
       Il y a de nombreux cadavres sur le sol et de nombreuses capsules ont déjà
-      été utilisé. On peut voir une capsule en très mauvais état au nord. Heureusement
+      été utilisées. On peut voir une capsule en très mauvais état au nord. Heureusement
       il semble qu’il y a une capsule encore en état de fonctionner au nord-ouest.
 ---
 id: Capsule-endommage-000
@@ -232,120 +233,128 @@ type: Portal
 exits:
   - id: laboratoire-000-sud
     location: Laboratoire-000
-    direction: sud
+    direction: nord
   - id: couloirsud-000-nord
     location: Couloir-principal-sud-000
-    direction: nord
+    direction: sud
 ---
 id: portal-couloirsud-couloircentre-000
 type: Portal
 exits:
   - id: couloirsud-000-sud
     location: Couloir-principal-sud-000
-    direction: sud
+    direction: nord
   - id: couloircentre-000-nord
     location: Couloir-principal-centre-000
-    direction: nord
+    direction: sud
 ---
 id: portal-couloircentre-couloirnord-000
 type: Portal
 exits:
   - id: couloircentre-000-sud
     location: Couloir-principal-centre-000
-    direction: sud
+    direction: nord
   - id: couloirnord-000-nord
     location: Couloir-principal-nord-000
-    direction: nord
+    direction: sud
 ---
 id: portal-couloircentre-couloirest-000
 type: Portal
 exits:
   - id: couloircentre-000-ouest
     location: Couloir-principal-centre-000
-    direction: ouest
+    direction: est
   - id: couloirest-000-est
     location: Couloir-principal-est-000
-    direction: est
+    direction: ouest
 ---
 id: portal-couloircentre-couloirouest-000
 type: Portal
 exits:
   - id: couloircentre-000-est
     location: Couloir-principal-centre-000
-    direction: est
+    direction: ouest
   - id: couloirouest-000-ouest
     location: Couloir-principal-ouest-000
-    direction: ouest
+    direction: est
 ---
 id: portal-couloircentre-stockage-000
 type: Portal
 exits:
   - id: couloircentre-000-sud-ouest
     location: Couloir-principal-centre-000
-    direction: sud-ouest
+    direction: nord-est
   - id: stockage-000-nord-est
     location: Salle-de-stockage-000
-    direction: nord-est
+    direction: sud-ouest
 ---
 id: portal-couloircentre-machines-000
 type: Portal
 exits:
   - id: couloircentre-000-nord-ouest
     location: Couloir-principal-centre-000
-    direction: nord-ouest
+    direction: sud-est
   - id: machines-000-sud-est
     location: Salle-des-machines-000
-    direction: sud-est
+    direction: nord-ouest
 ---
 id: portal-couloirnord-commandement-000
 type: Portal
 exits:
   - id: couloirnord-000-sud
     location: Couloir-principal-nord-000
-    direction: sud
+    direction: nord
   - id: commandement-000-nord
     location: Salle-de-commandement-000
-    direction: nord
+    direction: sud
 ---
 id: portal-couloirest-armurerie-000
 type: Portal
 exits:
   - id: couloirest-000-ouest
     location: Couloir-principal-est-000
-    direction: ouest
+    direction: est
   - id: armurerie-000-est
     location: Armurerie-000
-    direction: est
+    direction: ouest
 ---
 id: portal-couloirouest-spatioport-000
 type: Portal
 exits:
   - id: couloirouest-000-est
     location: Couloir-principal-ouest-000
-    direction: est
+    direction: ouest
+    events:
+      enter-portal:
+       - props:
+          - -monstre-000:mort
+         actor: "Le monstre bondit sur vous et vous dévore"
+         data-driven: true
+         effects:
+          - type: DeathEffect
   - id: spatioport-000-ouest
     location: Spatioport-000
-    direction: ouest
+    direction: est
 ---
 id: portal-spatioport-exploration-000
 type: Portal
 exits:
   - id: spatioport-000-sud-est
     location: Spatioport-000
-    direction: sud-est
+    direction: nord-ouest
   - id: exploration-000-nord-ouest
     location: Capsule-exploration-000
-    direction: nord-ouest
+    direction: sud-est
 ---
 id: portal-spatioport-endommage-000
 type: Portal
 exits:
   - id: spatioport-000-sud
     location: Spatioport-000
-    direction: sud
+    direction: nord
   - id: endommage-000-nord
     location: Capsule-endommage-000
-    direction: nord
+    direction: sud
 ---
 id: badge-000
 type: Thing
@@ -480,7 +489,7 @@ names:
   - revolver-use
 props:
   - takable
-  - usable-with
+  - gun
 events:
   info:
     actor: "Un revolver usé."
@@ -488,12 +497,23 @@ events:
     actor: |
       Il semble être marqué par les combats, tirer avec risquerait fortement
       de l’endommager d’avantage et de le rendre inutilisable.
+  take:
+    effects:
+      type: ChangePropEffect
+      modifs:
+        - revolver-000:acquired
+  drop:
+    effects:
+      type: ChangePropEffect
+      modifs:
+        - -revolver-000:acquired
+
 ---
 id: monstre-000
 type: Thing
 name: monstre
 props:
-  - usable-with
+  - shootable
 events:
   info:
     actor: "Un monstre imposant"
@@ -501,6 +521,18 @@ events:
     actor: |
       Il semble très agressif mais il ne semble pas vous avoir vu,
       s'avancer vers lui serait sucidaire.
+  shoot:
+    - props:
+      - revolver-000:acquired
+      actor: |
+        Vous tirez sur {{ object.noun_the() }}, votre revolver se
+        désintègre sous vos yeux.
+      effects:
+        type: ChangePropEffect
+        modifs:
+          - monstre-000:mort
+
+
 ---
 id: scaphandre-inutilisable-000
 type: Thing

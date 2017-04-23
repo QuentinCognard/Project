@@ -20,3 +20,4 @@ from .reset        import ResetEvent
 from .deadaction   import DeadAction
 from .teleport     import TeleportEvent
 from .narrative    import NarrativeEvent
+from .shoot        import ShootEvent
