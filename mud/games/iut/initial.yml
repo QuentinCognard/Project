@@ -311,7 +311,7 @@ exits:
     events:
       enter-portal:
         actor: "Vous entrez dans la salle de commandement"
-        failed: 
+        failed:
           actor: &porte-commandement |
             La porte est verouillée, il vous faut un badge pour entrer.
       open:
@@ -322,7 +322,7 @@ exits:
       open-with:
         - props:
            - portal:closed
-           - object2:key-for-Salle-de-commandement-000
+           - object2: key-for-Salle-de-commandement-000
           effects:
             type: ChangePropEffect
             modifs:
@@ -331,7 +331,7 @@ exits:
               La porte de la salle de commandement s'ouvre.
         - props:
           - portal:closed
-          - -object2:key-for-Salle-de-commandement-000
+          - -object2: key-for-Salle-de-commandement-000
           actor: |
             Vous tentez en vaint d'ouvrir la porte.
         - props:
@@ -350,13 +350,15 @@ exits:
   - id: couloirest-000-ouest
     location: Couloir-principal-est-000
     direction: est
+    name:
+      - porte
     events:
       enter-portal:
         actor: "Vous entrez dans l'armurerie."
         failed:
           actor: |
             la porte semble verouillée, il y a un scanner
-            d'empreinte digitale qui semble permettre de 
+            d'empreinte digitale qui semble permettre de
             l'ouvrir. On dirait qu'il faut un certains grade
             pour y accéder.
       open:
@@ -366,8 +368,8 @@ exits:
           actor: "La porte est déjà ouverte"
       open-with:
         - props:
-           - portal:closed
-           - object2:main-000
+           - portal: closed
+           - object2: main-for-armurerie-000
           effects:
             type: ChangePropEffect
             modifs:
@@ -376,7 +378,7 @@ exits:
               La porte de l'armurerie s'ouvre.
         - props:
           - portal:closed
-          - -object2:main-000
+          - -object2: main-for-armurerie-000
           actor: |
             Vous tentez en vaint d'ouvrir la porte.
         - props:
@@ -494,6 +496,7 @@ names:
 props:
   - takable
   - usable-with
+  - main-for-armurerie-000
 events:
   info:
     actor: "La main d'un soldat mort"
