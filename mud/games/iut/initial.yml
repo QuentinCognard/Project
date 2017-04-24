@@ -62,9 +62,8 @@ events:
   look:
     actor: |
       L’intersection du couloir, on y voit l'accès à de nombreuses pièces,
-      des traces de sang remonte jusqu’au bout du couloir ouest.
-      C'est l'intersection du couloir, on peut continuer vers le nord, le sud,
-      l'ouest et l'est.
+      des traces de sang remonte jusqu’au bout du couloir à l'ouest.
+      On peut continuer vers le nord, le sud, l'ouest et l'est.
       Il y a des accès au nord-est et sud-est.
 ---
 id: Salle-des-machines-000
@@ -298,7 +297,11 @@ exits:
     direction: sud-est
     events:
       enter-portal:
-        - props: portal-machine-activated
+        actor     : "Vous entrez dans la salle des machines"
+        failed:
+          actor   : |
+            La porte est verrouillée, il ne semble pas y avoir de moyen
+            de l'ouvrir, je devrais aller voir dans la salle de commandement.
   - id: machines-000-sud-est
     location: Salle-des-machines-000
     direction: nord-ouest
@@ -723,6 +726,7 @@ type: Thing
 names:
   - interface-pilotage
   - interface-de-pilotage
+  - interface
 props:
   - usable-with
 events:
@@ -738,6 +742,7 @@ type: Thing
 names:
   - interface-controle
   - interface-de-controle
+  - interface
 props:
   - pushable
 events:
@@ -752,4 +757,4 @@ events:
       la porte de la salle des machines s'est déverouillée.
     effects:
       - type  : ChangePropEffect
-        modifs: portal-machine-activated
+        modifs: -portal-couloircentre-machines-000:closed
