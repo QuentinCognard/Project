@@ -290,10 +290,15 @@ exits:
 ---
 id: portal-couloircentre-machines-000
 type: Portal
+props:
+  - closed
 exits:
   - id: couloircentre-000-nord-ouest
     location: Couloir-principal-centre-000
     direction: sud-est
+    events:
+      enter-portal:
+        - props: portal-machine-activated
   - id: machines-000-sud-est
     location: Salle-des-machines-000
     direction: nord-ouest
@@ -734,10 +739,17 @@ names:
   - interface-controle
   - interface-de-controle
 props:
-  - usable
+  - pushable
 events:
   info:
     actor: "L'interface de controle du vaisseau."
   look:
     actor: |
       Cette interface semble contrôler l'intégralité de la sécurité du vaisseau.
+  push:
+    actor: |
+      Vous appuyez sur l'inferace, l'affichage indique que
+      la porte de la salle des machines s'est déverouillée.
+    effects:
+      - type  : ChangePropEffect
+        modifs: portal-machine-activated
