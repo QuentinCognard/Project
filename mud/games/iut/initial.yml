@@ -694,7 +694,9 @@ events:
 ---
 id: combinaison-spatiale-000
 type: Thing
-name: combinaison-spatiale
+names:
+  - combinaison-spatiale
+  - combinaison
 props:
   - takable
   - equipable
