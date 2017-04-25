@@ -417,6 +417,8 @@ exits:
 ---
 id: portal-spatioport-exploration-000
 type: Portal
+props:
+  - closable
 exits:
   - id: spatioport-000-sud-est
     location: Spatioport-000
@@ -714,14 +716,20 @@ names:
   - porte
   - porte-capsule
   - porte-de-capsule
-props:
-  - usable-with
 events:
   info:
     actor: "Une porte blindée à verrou électronique."
   look:
     actor: |
       Cette porte semble verouillée, elle peut être ouverte avec un badge.
+  close:
+    actor: "Fermeture de la porte de la capsule."
+    effects:
+      - type: ChangePropEffect
+        modifs: portal-spatioport-exploration-000:closed
+  open:
+    - props: portal-spatioport-exploration-000:closed
+      actor: "La porte est verrouillée."
 ---
 id: interface-pilotage-000
 type: Thing
